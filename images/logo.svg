@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <path id="oben8" d="M19 50 A31 31 0 0 1 81 50"/>
+    <path id="unten8" d="M12 50 A38 38 0 0 0 88 50"/>
+  </defs>
+  <circle cx="50" cy="50" r="47" fill="#fff4e0" stroke="#2e7d32" stroke-width="3"/>
+  <circle cx="50" cy="50" r="27" fill="none" stroke="#2e7d32" stroke-width="1"/>
+  <text font-family="Georgia, serif" font-weight="bold" font-size="12" letter-spacing="2" fill="#c62828">
+    <textPath href="#oben8" startOffset="50%" text-anchor="middle">SABOR</textPath>
+  </text>
+  <text font-family="Georgia, serif" font-weight="bold" font-size="9.5" letter-spacing="1" fill="#2e7d32">
+    <textPath href="#unten8" startOffset="50%" text-anchor="middle">DE MÉXICO</textPath>
+  </text>
+  <circle cx="13" cy="50" r="2" fill="#c62828"/>
+  <circle cx="87" cy="50" r="2" fill="#c62828"/>
+  <g transform="translate(50 53) scale(0.55) translate(-50 -50)">
+    <path d="M16 64 A34 34 0 0 1 84 64" fill="none" stroke="#4caf50" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="25" cy="41" r="4.5" fill="#c62828"/>
+    <circle cx="38" cy="32" r="4.5" fill="#c62828"/>
+    <circle cx="62" cy="32" r="4.5" fill="#c62828"/>
+    <circle cx="75" cy="41" r="4.5" fill="#c62828"/>
+    <path d="M18 68 A32 32 0 0 1 82 68 Z" fill="#f2b632" stroke="#d4952a" stroke-width="3" stroke-linejoin="round"/>
+    <circle cx="38" cy="54" r="2" fill="#d4952a"/>
+    <circle cx="52" cy="48" r="2" fill="#d4952a"/>
+    <circle cx="62" cy="58" r="2" fill="#d4952a"/>
+    <circle cx="45" cy="62" r="2" fill="#d4952a"/>
+  </g>
+</svg>
