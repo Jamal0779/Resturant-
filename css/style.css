@@ -57,6 +57,18 @@ footer {
     color: white;
 }
 
+/* Status der letzten Bestellung unter dem Menü */
+.statusleiste {
+    background: #fff3cd;
+    color: #5c1e14;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+.statusleiste a {
+    color: #8b2e1f;
+}
+
 /* Meldungen */
 .meldung {
     padding: 10px 15px;
@@ -71,14 +83,6 @@ footer {
 .fehler {
     background: #f8d7da;
     color: #721c24;
-}
-
-/* Meldung beim Warenkorb: oben rechts, erst versteckt */
-#meldung {
-    display: none;
-    position: fixed;
-    top: 20px;
-    right: 20px;
 }
 
 /* Speisekarte */
@@ -97,14 +101,37 @@ footer {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.gericht form {
+/* Knopf immer ganz unten */
+/* Menge und Knopf immer ganz unten */
+.bestellen {
     margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
+.stueck {
+    font-weight: bold;
+    color: #8b2e1f;
+}
+
+/* Meldung unten rechts über der Seite */
+#toast {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 18px;
+    background: #155724;
+    color: white;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Bild ganz zeigen, nichts abschneiden */
 .gericht img {
     width: 100%;
-    height: 150px;
-    object-fit: cover;
+    height: auto;
     border-radius: 5px;
 }
 
@@ -116,6 +143,91 @@ footer {
 .klein {
     font-size: 14px;
     color: #777;
+}
+
+/* Bestellungen (Ladenbesitzer) */
+.bestellung {
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.bestellung h3 {
+    margin-top: 0;
+}
+
+.status {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.status label {
+    margin: 0;
+}
+
+/* Angebote: Gerichte zum Anhaken */
+.auswahl {
+    columns: 2;
+    background: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    max-width: 700px;
+}
+
+.haken {
+    margin-top: 5px;
+}
+
+form.formular .haken input {
+    width: auto;
+}
+
+/* kleines Bild in Tabellen */
+.mini {
+    width: 80px;
+    height: 55px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+/* Knöpfe in einer Reihe (Speisekarte verwalten) */
+.knoepfe {
+    display: flex;
+    gap: 6px;
+}
+
+.knoepfe .button,
+.knoepfe button {
+    padding: 6px 10px;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.nicht-umbrechen {
+    white-space: nowrap;
+}
+
+button.grau {
+    background: #777;
+}
+
+button.grau:hover {
+    background: #555;
+}
+
+button.rand {
+    background: white;
+    color: #8b2e1f;
+    border: 1px solid #8b2e1f;
+}
+
+button.rand:hover {
+    background: #8b2e1f;
+    color: white;
 }
 
 /* Tabellen */
@@ -173,7 +285,17 @@ button:hover, .button:hover {
 
 /* Drucken (Beleg) */
 @media print {
-    nav, footer, .nicht-drucken {
+    /* kein Rand = kein Name und Link vom Browser */
+    @page {
+        margin: 0;
+    }
+
+    body {
+        margin: 1.5cm;
+        background: white;
+    }
+
+    nav, footer, .nicht-drucken, .statusleiste {
         display: none;
     }
 }

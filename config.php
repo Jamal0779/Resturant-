@@ -11,7 +11,7 @@ const DB_NAME = 'restaurant_db';
 const DB_USER = 'root';
 const DB_PASS = '';
 
-const KATEGORIEN = ['Vorspeisen', 'Hauptgerichte', 'Desserts', 'Getränke'];
+const KATEGORIEN = ['Angebote', 'Vorspeisen', 'Hauptgerichte', 'Desserts', 'Getränke'];
 
 const STATUS_LISTE = ['neu', 'in_zubereitung', 'unterwegs', 'geliefert', 'storniert'];
 

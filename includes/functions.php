@@ -6,7 +6,7 @@ session_start();
 // sichere Ausgabe
 function e($text)
 {
-    return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
+    return htmlspecialchars((string) $text, ENT_QUOTES, 'UTF-8');
 }
 
 // 9.5 -> 9,50 €
@@ -61,4 +61,60 @@ function bild($datei)
         return BILDER_ORDNER . $datei;
     }
     return PLATZHALTER;
+}
+
+// Bestellung speichern, Warenkorb leeren und zum Beleg gehen
+function bestellung_speichern($pdo, $kunde, $zahlungsart)
+{
+    $bestellnummer = date('Ymd') . '-' . rand(1000, 9999);
+    $token = bin2hex(random_bytes(16));
+
+    // jedes Gericht als eigene Zeile speichern
+    foreach ($_SESSION['warenkorb'] as $id => $menge) {
+        $abfrage = $pdo->prepare('SELECT * FROM gerichte WHERE id = ?');
+        $abfrage->execute([$id]);
+        $gericht = $abfrage->fetch();
+
+        $speichern = $pdo->prepare('INSERT INTO bestellungen
+            (bestellnummer, beleg_token, gericht_id, gerichtname, einzelpreis, menge, kundenname, lieferadresse, telefon, zahlungsart)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        $speichern->execute([$bestellnummer, $token, $id, $gericht['name'], $gericht['preis'], $menge, $kunde['name'], $kunde['adresse'], $kunde['telefon'], $zahlungsart]);
+    }
+
+    $_SESSION['warenkorb'] = [];
+    unset($_SESSION['bestellung']);
+
+    // merken, damit der Kunde den Status auf jeder Seite sieht
+    $_SESSION['letzte_bestellung'] = $token;
+    unset($_SESSION['fertig_seit']);
+
+    header('Location: beleg.php?token=' . $token);
+    exit;
+}
+
+// Status als Text für den Kunden
+function status_text($status)
+{
+    $texte = [
+        'neu' => 'Bestellung ist eingegangen',
+        'in_zubereitung' => 'Dein Essen wird zubereitet',
+        'unterwegs' => 'Dein Essen ist unterwegs zu dir',
+        'geliefert' => 'Geliefert – guten Appetit!',
+        'storniert' => 'Bestellung wurde storniert'
+    ];
+    return $texte[$status];
+}
+
+// Gesamtpreis vom Warenkorb
+function warenkorb_summe($pdo)
+{
+    $gesamt = 0;
+
+    foreach ($_SESSION['warenkorb'] as $id => $menge) {
+        $abfrage = $pdo->prepare('SELECT preis FROM gerichte WHERE id = ?');
+        $abfrage->execute([$id]);
+        $gesamt = $gesamt + $abfrage->fetchColumn() * $menge;
+    }
+
+    return $gesamt;
 }
